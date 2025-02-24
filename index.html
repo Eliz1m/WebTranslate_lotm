@@ -69,12 +69,12 @@
         }*/
 
         function loadChapter(chapterNumber) {
-            console.log("Загружаем:", chapters/chapter${chapterNumber}.txt);
+            console.log("Загружаем: chapters/chapter${chapterNumber}.txt");
 
             fetch(`chapters/chapter${chapterNumber}.txt`)
                 .then(response => {
                     console.log("Ответ от сервера:", response);
-                    if (!response.ok) throw new Error(Ошибка загрузки: ${ response.status });
+                    if (!response.ok) throw new Error("Ошибка загрузки: ${response.status}");
                     return response.text();
                 })
                 .then(text => {
