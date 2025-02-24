@@ -31,7 +31,7 @@
     <script>
         let chapter = 1;
 
-        function loadChapter(chapterNumber) {
+        /*function loadChapter(chapterNumber) {
             fetch(`chapters/chapter${chapterNumber}.txt`)
                 .then(response => {
                     if (!response.ok) {
@@ -46,7 +46,7 @@
                     document.getElementById('content').textContent = 'Глава не найдена';
                     chapter--; // Откатываем номер, если главы нет
                 });
-        }
+        }*/
 
         /*function loadChapter(chapterNumber) {
             fetch(`chapters/chapter${chapterNumber}.txt`)
@@ -67,6 +67,27 @@
                     chapter--;
                 });
         }*/
+
+        function loadChapter(chapterNumber) {
+            console.log("Загружаем:", chapters/chapter${chapterNumber}.txt);
+
+            fetch(`chapters/chapter${chapterNumber}.txt`)
+                .then(response => {
+                    console.log("Ответ от сервера:", response);
+                    if (!response.ok) throw new Error(Ошибка загрузки: ${ response.status });
+                    return response.text();
+                })
+                .then(text => {
+                    console.log("Текст загружен:", text);
+                    document.getElementById('content').innerHTML = marked.parse(text);
+                    MathJax.typesetPromise();
+                })
+                .catch(error => {
+                    console.error("Ошибка:", error);
+                    document.getElementById('content').textContent = 'Глава не найдена';
+                    chapter--;
+                });
+        }
 
         function prevChapter() {
             if (chapter > 1) {
