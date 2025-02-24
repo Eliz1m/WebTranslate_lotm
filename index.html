@@ -22,14 +22,17 @@
         function loadChapter(chapterNumber) {
             fetch(`chapters/chapter${chapterNumber}.txt`)
                 .then(response => {
-                    if (!response.ok) throw new Error('Глава не найдена');
+                    if (!response.ok) {
+                        throw new Error('Глава не найдена');
+                    }
                     return response.text();
                 })
                 .then(text => {
-                    document.getElementById('content').innerText = text;
+                    document.getElementById('content').textContent = text;
                 })
                 .catch(error => {
-                    document.getElementById('content').innerText = 'Глава не найдена';
+                    document.getElementById('content').textContent = 'Глава не найдена';
+                    chapter--; // Откатываем номер, если главы нет
                 });
         }
 
@@ -41,8 +44,16 @@
         }
 
         function nextChapter() {
+            let prevChapter = chapter;
             chapter++;
             loadChapter(chapter);
+
+            // Если глава не найдена, возвращаемся назад
+            setTimeout(() => {
+                if (document.getElementById('content').textContent === 'Глава не найдена') {
+                    chapter = prevChapter;
+                }
+            }, 500);
         }
 
         loadChapter(chapter);
