@@ -33,14 +33,14 @@
         const totalChapters = 9; // СКОЛЬКО ГЛАВ ВСЕГО
 
         function loadChapter(chapterNumber) {
-            fetch('chapters/chapter${chapterNumber}.txt')
+            fetch(`chapters/chapter${chapterNumber}.txt`)
                 .then(response => {
                     if (!response.ok) throw new Error('Глава не найдена');
                     return response.text();
                 })
                 .then(text => {
                     document.getElementById('content').innerText = text;
-                    document.getElementById('page-title').textContent = 'Глава ${chapterNumber}';
+                    document.getElementById('page-title').textContent = `Глава ${chapterNumber}`;
                     window.scrollTo(0, 0);
                 })
                 .catch(error => {
