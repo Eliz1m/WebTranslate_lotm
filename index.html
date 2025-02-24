@@ -8,20 +8,10 @@
 
 </head>
 <body>
-    <!--<div class="container">
-        <h1>Читалка в стиле Obsidian + LaTeX</h1>
-        <div id="content" class="content">Загрузка...</div>
-        <div class="controls">
-            <button onclick="prevChapter()">◀ Предыдущая</button>
-            <button onclick="nextChapter()">Следующая ▶</button>
-        </div>
-    </div> -->
-
     <h1>Читалка глав</h1>
     <div id="content">Загрузка...</div>
     <button onclick="prevChapter()">Предыдущая глава</button>
     <button onclick="nextChapter()">Следующая глава</button>
-
 
     <script>
         let chapter = 1;
@@ -29,20 +19,17 @@
         function loadChapter(chapterNumber) {
             fetch(`chapters/chapter${chapterNumber}.txt`)
                 .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Глава не найдена');
-                    }
+                    if (!response.ok) throw new Error('Глава не найдена');
                     return response.text();
                 })
                 .then(text => {
-                    document.getElementById('content').textContent = text;
+                    document.getElementById('content').innerText = text;
                 })
                 .catch(error => {
-                    document.getElementById('content').textContent = 'Глава не найдена';
-                    chapter--; // Откатываем номер, если главы нет
+                    document.getElementById('content').innerText = 'Глава не найдена';
                 });
         }
-        
+
         function prevChapter() {
             if (chapter > 1) {
                 chapter--;
@@ -51,16 +38,8 @@
         }
 
         function nextChapter() {
-            let prevChapter = chapter;
             chapter++;
             loadChapter(chapter);
-
-            // Если глава не найдена, возвращаемся назад
-            setTimeout(() => {
-                if (document.getElementById('content').textContent === 'Глава не найдена') {
-                    chapter = prevChapter;
-                }
-            }, 500);
         }
 
         loadChapter(chapter);
