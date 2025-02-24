@@ -11,11 +11,14 @@
     </style>
 </head>
 <body>
-    <h1>Читалка глав</h1>
-    <div id="content">Загрузка...</div>
-    <button onclick="prevChapter()">Предыдущая глава</button>
-    <button onclick="nextChapter()">Следующая глава</button>
-
+    <div class="container">
+        <h1>Читалка в стиле Obsidian + LaTeX</h1>
+        <div id="content" class="content">Загрузка...</div>
+        <div class="controls">
+            <button onclick="prevChapter()">◀ Предыдущая</button>
+            <button onclick="nextChapter()">Следующая ▶</button>
+        </div>
+    </div>
     <script>
         let chapter = 1;
 
