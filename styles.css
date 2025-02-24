@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=EB+Garamond&display=swap');
+@import url('https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css');
 
 body {
     background-color: #1e1e1e;
@@ -33,21 +34,22 @@ h1 {
     line-height: 1.6;
 }
 
-.controls {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
-}
+    /* Стилизация заголовков */
+    .content h1, .content h2, .content h3 {
+        color: #fff;
+        border-bottom: 2px solid #555;
+        padding-bottom: 5px;
+    }
 
-button {
-    background: #444;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-}
+    /* Стилизация кода */
+    .content pre {
+        background: #1e1e1e;
+        padding: 10px;
+        border-radius: 5px;
+        overflow-x: auto;
+    }
 
-button:hover {
-    background: #666;
+/* Формулы */
+.katex {
+    font-size: 1.2em;
 }
