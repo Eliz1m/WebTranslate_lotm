@@ -29,6 +29,7 @@
                     document.getElementById('content').innerText = text;
                     //document.title = `Глава ${chapterNumber}`
                     document.getElementById('page-title').textContent = `Глава ${chapterNumber}`;
+                    window.scrollTo(0, 0);
                 })
                 .catch(error => {
                     document.getElementById('content').innerText = 'Глава не найдена';
