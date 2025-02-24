@@ -9,7 +9,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>Читалка</h1>
+        <h1 id="page-title">Читалка</h1>
         <div id="content" class="content">Загрузка...</div>
         <div class="controls">
             <button onclick="prevChapter()">◀ Предыдущая</button>
@@ -27,6 +27,8 @@
                 })
                 .then(text => {
                     document.getElementById('content').innerText = text;
+                    //document.title = `Глава ${chapterNumber}`
+                    document.getElementById('page-title').textContent = `Глава ${chapterNumber}`;
                 })
                 .catch(error => {
                     document.getElementById('content').innerText = 'Глава не найдена';
