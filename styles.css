@@ -9,7 +9,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: auto;
 }
 
 .container {
@@ -48,6 +48,6 @@ button {
     cursor: pointer;
 }
 
-    button:hover {
-        background: #666;
-    }
+button:hover {
+    background: #666;
+}
