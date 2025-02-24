@@ -3,45 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Читалка книги</title>
+    <title>Читалка глав</title>
     <style>
-        body { font-family: Arial, sans-serif; line-height: 1.6; max-width: 600px; margin: 20px auto; }
-        #content { white-space: pre-line; border: 1px solid #ddd; padding: 20px; min-height: 300px; }
-        .nav-buttons { margin-top: 10px; text-align: center; }
-        button { padding: 10px; margin: 5px; cursor: pointer; }
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        #content { border: 1px solid #ccc; padding: 15px; min-height: 200px; }
+        button { margin-top: 10px; padding: 10px; cursor: pointer; }
     </style>
 </head>
 <body>
-    <h1>Читалка книги</h1>
+    <h1>Читалка глав</h1>
     <div id="content">Загрузка...</div>
-    <div class="nav-buttons">
-        <button onclick="prevChapter()">Предыдущая</button>
-        <button onclick="nextChapter()">Следующая</button>
-    </div>
-    
+    <button onclick="prevChapter()">Предыдущая глава</button>
+    <button onclick="nextChapter()">Следующая глава</button>
+
     <script>
         let chapter = 1;
-        
-        function loadChapter() {
-            fetch(`chapter${chapter}.txt`)
-                .then(response => response.text())
-                .then(text => document.getElementById('content').innerText = text)
-                .catch(() => document.getElementById('content').innerText = 'Глава не найдена');
+
+        function loadChapter(chapterNumber) {
+            fetch(`chapters/chapter${chapterNumber}.txt`)
+                .then(response => {
+                    if (!response.ok) throw new Error('Глава не найдена');
+                    return response.text();
+                })
+                .then(text => {
+                    document.getElementById('content').innerText = text;
+                })
+                .catch(error => {
+                    document.getElementById('content').innerText = 'Глава не найдена';
+                });
         }
-        
+
         function prevChapter() {
             if (chapter > 1) {
                 chapter--;
-                loadChapter();
+                loadChapter(chapter);
             }
         }
-        
+
         function nextChapter() {
             chapter++;
-            loadChapter();
+            loadChapter(chapter);
         }
-        
-        loadChapter();
+
+        loadChapter(chapter);
     </script>
 </body>
 </html>
