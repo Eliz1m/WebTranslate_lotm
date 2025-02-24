@@ -5,6 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Читалка</title>
     <link rel="stylesheet" href="styles.css">
+
+    <!-- Подключаем Markdown (Marked.js) -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <!-- Подключаем LaTeX (MathJax) -->
+    <script>
+        window.MathJax = {
+            tex: { inlineMath: [['$', '$'], ['\', '\']] },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.js"></script>
+
 </head>
 <body>
     <div class="container">
@@ -18,7 +31,7 @@
     <script>
         let chapter = 1;
 
-        function loadChapter(chapterNumber) {
+        /*<!-- function loadChapter(chapterNumber) {
             fetch(`chapters/chapter${chapterNumber}.txt`)
                 .then(response => {
                     if (!response.ok) {
@@ -32,6 +45,24 @@
                 .catch(error => {
                     document.getElementById('content').textContent = 'Глава не найдена';
                     chapter--; // Откатываем номер, если главы нет
+                });
+        } -->*/
+
+        function loadChapter(chapterNumber) {
+            fetch(chapters / chapter${ chapterNumber }.txt)
+                .then(response => {
+                    if (!response.ok) throw new Error('Глава не найдена');
+                    return response.text();
+                })
+                .then(text => {
+                    const contentDiv = document.getElementById('content');
+                    contentDiv.innerHTML = marked.parse(text); // Рендер Markdown
+
+                    MathJax.typesetPromise(); // Обновляем LaTeX
+                })
+                .catch(error => {
+                    document.getElementById('content').textContent = 'Глава не найдена';
+                    chapter--;
                 });
         }
 
