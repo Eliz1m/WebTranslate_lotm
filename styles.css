@@ -87,8 +87,16 @@ body {
     border-bottom: 1px solid #444;
 }
 
+.sidebar ul li.active {
+    background: #666;
+    font-weight: bold;
+    color: #fff;
+    border-radius: 5px;
+}
+
 .sidebar ul li:hover {
     background: #555;
+    border-radius: 5px;
 }
 
 /* Основной контейнер */
