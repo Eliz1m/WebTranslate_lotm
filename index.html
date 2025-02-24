@@ -33,15 +33,16 @@
         const totalChapters = 9; // СКОЛЬКО ГЛАВ ВСЕГО
 
         function loadChapter(chapterNumber) {
-            fetch(`chapters/chapter${chapterNumber}.txt`)
+            fetch('chapters/chapter${chapterNumber}.txt')
                 .then(response => {
                     if (!response.ok) throw new Error('Глава не найдена');
                     return response.text();
                 })
                 .then(text => {
                     document.getElementById('content').innerText = text;
-                    document.getElementById('page-title').textContent = `Глава ${chapterNumber}`;
+                    document.getElementById('page-title').textContent = 'Глава ${chapterNumber}';
                     window.scrollTo(0, 0);
+                    updateTOC(chapterNumber); // Обновляем индикатор в оглавлении
                 })
                 .catch(error => {
                     document.getElementById('content').innerText = 'Глава не найдена';
@@ -72,6 +73,7 @@
             for (let i = 1; i <= totalChapters; i++) {
                 const li = document.createElement('li');
                 li.textContent = `Глава ${i}`;
+                li.setAttribute("data-chapter", i);
                 li.onclick = () => {
                     chapter = i;
                     loadChapter(i);
@@ -79,6 +81,16 @@
                 };
                 toc.appendChild(li);
             }
+            updateTOC(chapter);
+        }
+
+        function updateTOC(currentChapter) {
+            document.querySelectorAll("#toc li").forEach(li => {
+                li.classList.remove("active");
+                if (parseInt(li.getAttribute("data-chapter")) === currentChapter) {
+                    li.classList.add("active");
+                }
+            });
         }
 
         generateTOC();
