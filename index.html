@@ -49,7 +49,7 @@
         } -->*/
 
         function loadChapter(chapterNumber) {
-            fetch(chapters / chapter${ chapterNumber }.txt)
+            fetch(`chapters/chapter${chapterNumber}.txt`)
                 .then(response => {
                     if (!response.ok) throw new Error('Глава не найдена');
                     return response.text();
