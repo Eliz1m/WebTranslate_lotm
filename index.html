@@ -51,7 +51,9 @@
         function loadChapter(chapterNumber) {
             fetch(`chapters/chapter${chapterNumber}.txt`)
                 .then(response => {
-                    if (!response.ok) throw new Error('Глава не найдена');
+                    if (!response.ok) {
+                        throw new Error('Глава не найдена');
+                    }
                     return response.text();
                 })
                 .then(text => {
@@ -61,7 +63,7 @@
                     MathJax.typesetPromise(); // Обновляем LaTeX
                 })
                 .catch(error => {
-                    document.getElementById('content').textContent = 'Глава не найдена';
+                    document.getElementById('content').textContent = 'Глава не найдена 404';
                     chapter--;
                 });
         }
