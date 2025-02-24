@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Читалка</title>
@@ -8,6 +9,16 @@
 
 </head>
 <body>
+
+    <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+
+    <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+
+    <div class="sidebar" id="sidebar">
+        <h2>Оглавление</h2>
+        <ul id="toc"></ul>
+    </div>
+
     <div class="container">
         <h1 id="page-title">Читалка</h1>
         <div id="content" class="content">Загрузка...</div>
@@ -16,19 +27,20 @@
             <button onclick="nextChapter()">Следующая ▶</button>
         </div>
     </div>
+
     <script>
         let chapter = 1;
+        const totalChapters = 9; // СКОЛЬКО ГЛАВ ВСЕГО
 
         function loadChapter(chapterNumber) {
-            fetch(`chapters/chapter${chapterNumber}.txt`)
+            fetch('chapters/chapter${chapterNumber}.txt')
                 .then(response => {
                     if (!response.ok) throw new Error('Глава не найдена');
                     return response.text();
                 })
                 .then(text => {
                     document.getElementById('content').innerText = text;
-                    //document.title = `Глава ${chapterNumber}`
-                    document.getElementById('page-title').textContent = `Глава ${chapterNumber}`;
+                    document.getElementById('page-title').textContent = 'Глава ${chapterNumber}';
                     window.scrollTo(0, 0);
                 })
                 .catch(error => {
@@ -44,11 +56,34 @@
         }
 
         function nextChapter() {
-            chapter++;
-            loadChapter(chapter);
+            if (chapter < totalChapters) {
+                chapter++;
+                loadChapter(chapter);
+            }
         }
 
+        function toggleMenu() {
+            document.getElementById('sidebar').classList.toggle('open');
+            document.getElementById('overlay').classList.toggle('open');
+        }
+
+        function generateTOC() {
+            const toc = document.getElementById('toc');
+            for (let i = 1; i <= totalChapters; i++) {
+                const li = document.createElement('li');
+                li.textContent = `Глава ${i}`;
+                li.onclick = () => {
+                    chapter = i;
+                    loadChapter(i);
+                    toggleMenu(); // Закрывает меню после выбора главы
+                };
+                toc.appendChild(li);
+            }
+        }
+
+        generateTOC();
         loadChapter(chapter);
     </script>
+
 </body>
 </html>
