@@ -70,7 +70,8 @@ body {
 /* Заголовок меню */
 .sidebar h2 {
     text-align: center;
-    margin-bottom: 20px;
+    margin-top: 5px;
+    margin-bottom: 25px;
 }
 
 /* Оглавление */
