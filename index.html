@@ -28,6 +28,8 @@
         </div>
     </div>
 
+    <button id="theme-toggle">🌙</button>
+
     <script>
         let chapter = 1;
         const totalChapters = 9; // СКОЛЬКО ГЛАВ ВСЕГО
@@ -77,7 +79,7 @@
                 li.onclick = () => {
                     chapter = i;
                     loadChapter(i);
-                    toggleMenu(); // Закрывает меню после выбора главы
+                    toggleMenu();
                 };
                 toc.appendChild(li);
             }
@@ -95,6 +97,34 @@
 
         generateTOC();
         loadChapter(chapter);
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const themeToggle = document.getElementById("theme-toggle");
+            const currentTheme = localStorage.getItem("theme");
+
+            if (currentTheme) {
+                document.documentElement.setAttribute("data-theme", currentTheme);
+            } else {
+                document.documentElement.setAttribute("data-theme", "light");
+            }
+
+            themeToggle.textContent = currentTheme === "dark-theme" ? "🌙" : "☀️";
+
+            themeToggle.addEventListener("click", () => {
+                const theme = document.documentElement.getAttribute("data-theme");
+                if (theme === "dark") {
+                    document.documentElement.setAttribute("data-theme", "light");
+                    themeToggle.textContent = "🌙";
+                    localStorage.setItem("theme", "light");
+                } else {
+                    document.documentElement.setAttribute("data-theme", "dark");
+                    themeToggle.textContent = "☀️";
+                    localStorage.setItem("theme", "dark");
+                }
+                console.log("New theme: ", localStorage.getItem("theme")); //
+            });
+        });
+
     </script>
 
 </body>
