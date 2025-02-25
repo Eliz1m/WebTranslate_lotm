@@ -28,7 +28,14 @@
         </div>
     </div>
 
-    <button id="theme-toggle">🌙</button>
+    <div id="floating-menu">
+        <button id="arrow-toggle">></button>
+        <div id="arrow-content">
+            <button id="theme-toggle">🌙</button>
+            <button id="increase-font">➕</button>
+            <button id="decrease-font">➖</button>
+        </div>
+    </div>
 
     <script>
         let chapter = 1;
@@ -44,7 +51,7 @@
                     document.getElementById('content').innerText = text;
                     document.getElementById('page-title').textContent = `Глава ${chapterNumber}`;
                     window.scrollTo(0, 0);
-                    updateTOC(chapterNumber); // Обновляем индикатор в оглавлении
+                    updateTOC(chapterNumber); // Обновлят индикатор в оглавлении
                 })
                 .catch(error => {
                     document.getElementById('content').innerText = 'Глава не найдена';
@@ -102,13 +109,23 @@
             const themeToggle = document.getElementById("theme-toggle");
             const currentTheme = localStorage.getItem("theme");
 
+            const increaseFont = document.getElementById("increase-font");
+            const decreaseFont = document.getElementById("decrease-font");
+
+            const content = document.querySelector(".content");
+
+            const arrowToggle = document.getElementById("arrow-toggle");
+            const floatingMenu = document.getElementById("floating-menu");
+
+            arrowToggle.addEventListener("click", () => {
+                floatingMenu.classList.toggle("open");
+            });
+
             if (currentTheme) {
                 document.documentElement.setAttribute("data-theme", currentTheme);
             } else {
                 document.documentElement.setAttribute("data-theme", "light");
             }
-
-            themeToggle.textContent = currentTheme === "dark-theme" ? "🌙" : "☀️";
 
             themeToggle.addEventListener("click", () => {
                 const theme = document.documentElement.getAttribute("data-theme");
@@ -123,8 +140,28 @@
                 }
                 console.log("New theme: ", localStorage.getItem("theme")); //
             });
-        });
 
+            // Изменение размера шрифта
+
+            let fontSize = parseInt(localStorage.getItem("fontSize")) || 22;
+            content.style.fontSize = fontSize + "px";
+
+            increaseFont.addEventListener("click", () => {
+                if (fontSize < 36) {
+                    fontSize += 2;
+                    content.style.fontSize = fontSize + "px";
+                    localStorage.setItem("fontSize", fontSize);
+                }
+            });
+
+            decreaseFont.addEventListener("click", () => {
+                if (fontSize > 18) {
+                    fontSize -= 2;
+                    content.style.fontSize = fontSize + "px";
+                    localStorage.setItem("fontSize", fontSize);
+                }
+            });
+        });
     </script>
 
 </body>
