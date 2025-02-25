@@ -121,6 +121,12 @@
                 floatingMenu.classList.toggle("open");
             });
 
+            if (currentTheme === "dark") {
+                themeToggle.textContent = "☀️";
+            } else {
+                themeToggle.textContent = "🌙";
+            }
+
             if (currentTheme) {
                 document.documentElement.setAttribute("data-theme", currentTheme);
             } else {
