@@ -17,6 +17,7 @@ body {
     --bg-color: #1e1e1e;
     --text-color: #d4d4d4;
     --content-bg: #252526;
+    --content-bg-2: #2d2d2e;
     --button-bg: #444;
     --button-hover: #666;
     --overlay: #00000079;
@@ -25,7 +26,8 @@ body {
 [data-theme="dark"] {
     --bg-color: #bdbdbd;
     --text-color: #000000;
-    --content-bg: #d6d6d6;
+    --content-bg: #cacaca;
+    --content-bg-2: #d6d6d6;
     --button-bg: #ddd;
     --button-hover: #919191;
     --overlay: #80808079;
@@ -136,7 +138,7 @@ h1 {
 .content {
     padding: 20px;
     border-radius: 5px;
-    background: var(--content-bg);
+    background: var(--content-bg-2);
     font-size: 22px;
     line-height: 1.6;
 }
