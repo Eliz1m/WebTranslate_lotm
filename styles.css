@@ -5,7 +5,7 @@ body {
     color: var(--text-color);
     font-family: 'EB Garamond', serif;
     margin: 0;
-    padding: 20px;
+    padding: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -15,6 +15,8 @@ body {
 
 :root {
     --bg-color: #1e1e1e;
+    --arrow-button-bg: #4e4e4eee;
+    --arrow-button-bg-shadow: #1a1a1a71;
     --text-color: #d4d4d4;
     --content-bg: #252526;
     --content-bg-2: #2d2d2e;
@@ -25,6 +27,8 @@ body {
 
 [data-theme="dark"] {
     --bg-color: #bdbdbd;
+    --arrow-button-bg: #dfdfdfcb;
+    --arrow-button-bg-shadow: #00000036;
     --text-color: #000000;
     --content-bg: #cacaca;
     --content-bg-2: #d6d6d6;
@@ -33,7 +37,6 @@ body {
     --overlay: #80808079;
 }
 
-/* Кнопка открытия меню */
 .menu-toggle {
     position: fixed;
     top: 15px;
@@ -46,7 +49,6 @@ body {
     z-index: 1002;
 }
 
-/* Затемняющий фон */
 .overlay {
     position: fixed;
     top: 0;
@@ -60,13 +62,11 @@ body {
     z-index: 1001;
 }
 
-    /* Открытое состояние */
-    .overlay.open {
-        opacity: 1;
-        visibility: visible;
-    }
+.overlay.open {
+    opacity: 1;
+    visibility: visible;
+}
 
-/* Полноэкранное меню */
 .sidebar {
     position: fixed;
     top: 0;
@@ -83,19 +83,16 @@ body {
     z-index: 1001;
 }
 
-/* Когда меню открыто */
 .sidebar.open {
     transform: translateX(0);
 }
 
-/* Заголовок меню */
 .sidebar h2 {
     text-align: center;
     margin-top: 5px;
     margin-bottom: 25px;
 }
 
-/* Оглавление */
 .sidebar ul {
     list-style: none;
     padding: 0;
@@ -113,30 +110,30 @@ body {
     background: var(--text-color);
     font-weight: bold;
     color: var(--button-bg);
-    border-radius: 5px;
+    border-radius: 8px;
 }
 
 .sidebar ul li:hover {
     background: var(--overlay);
-    border-radius: 5px;
+    border-radius: 8px;
 }
 
 /* Основной контейнер */
 .container {
     max-width: 800px;
     background: var(--content-bg);
-    padding: 20px;
+    padding: 10px;
     border-radius: 10px;
     box-shadow: 0 0 10px #00000080;
 }
 
 h1 {
     text-align: center;
-    font-size: 24px;
+    font-size: 36px;
 }
 
 .content {
-    padding: 20px;
+    padding: 15px;
     border-radius: 5px;
     background: var(--content-bg-2);
     font-size: 22px;
@@ -154,7 +151,7 @@ button {
     color: var(--text-color);
     border: none;
     padding: 10px 20px;
-    border-radius: 5px;
+    border-radius: 10px;
     cursor: pointer;
 }
 
@@ -164,14 +161,105 @@ button:hover {
 
 #theme-toggle {
     position: fixed;
-    bottom: 20px;
-    right: 20px;
-    /*background: #444;
-    color: white;*/
+    bottom: 75px;
+    left: 10px;
     border: none;
     padding: 10px 15px;
     font-size: 20px;
     border-radius: 10px;
     cursor: pointer;
     transition: background 0.3s ease;
+}
+
+#increase-font, #decrease-font {
+    position: fixed;
+    bottom: 60px;
+    left: 10px;
+    background: var(--button-bg);
+    color: var(--text-color);
+    border: none;
+    padding: 10px;
+    font-size: 18px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+#increase-font {
+    bottom: 190px;
+}
+
+#decrease-font {
+    bottom: 140px;
+}
+
+#increase-font:hover, #decrease-font:hover {
+    background: var(--button-hover);
+}
+
+/***************************************/
+
+#floating-menu {
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-height: 46px;
+}
+
+#arrow-toggle {
+    background: var(--arrow-button-bg);
+    color: var(--text-color);
+    box-shadow: 0 0 10px var(--arrow-button-bg-shadow);
+    border: none;
+    padding: 15px;
+    padding-top: 11px;
+    padding-bottom: 11px;
+    font-size: 20px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.3s ease, background 0.3s ease;
+    display: none; /* По умолчанию скрыта */
+}
+
+#arrow-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+#arrow-content button {
+    background: var(--arrow-button-bg);
+    color: var(--text-color);
+    box-shadow: 0 0 10px var(--arrow-button-bg-shadow);
+    border: none;
+    padding: 10px;
+    font-size: 18px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+@media screen and (max-width: 900px) {
+    #arrow-toggle {
+        display: block;
+    }
+
+    #arrow-content {
+        display: none;
+    }
+
+    #floating-menu.open #arrow-content {
+        display: flex;
+    }
+}
+
+@media screen and (min-width: 900px) {
+    #arrow-toggle {
+        display: none;
+    }
 }
