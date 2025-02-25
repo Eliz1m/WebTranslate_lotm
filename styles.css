@@ -161,7 +161,7 @@ button:hover {
 
 #theme-toggle {
     position: fixed;
-    bottom: 75px;
+    bottom: 135px;
     left: 10px;
     border: none;
     padding: 10px 15px;
@@ -186,11 +186,11 @@ button:hover {
 }
 
 #increase-font {
-    bottom: 190px;
+    bottom: 250px;
 }
 
 #decrease-font {
-    bottom: 140px;
+    bottom: 200px;
 }
 
 #increase-font:hover, #decrease-font:hover {
@@ -201,7 +201,7 @@ button:hover {
 
 #floating-menu {
     position: fixed;
-    bottom: 10px;
+    bottom: 70px;
     left: 10px;
     display: flex;
     flex-direction: column;
