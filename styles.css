@@ -121,7 +121,7 @@ body {
     margin-top: 8px;
     padding: 0;
     list-style: none;
-    text-align: left;   /* Выровнять главы по левому краю */
+    text-align: center;   /* Выровнять главы */
 }
 
 /* Глава */
@@ -132,6 +132,7 @@ body {
     border-bottom: 1px solid var(--button-bg);
     cursor: pointer;
     transition: background 0.3s ease; /* Добавлен плавный переход */
+    text-align: left;       /* а текст внутри блока главы выравниваем влево */
 }
 
 .sidebar ul ul.chapters li.active {
