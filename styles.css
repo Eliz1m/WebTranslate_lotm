@@ -106,6 +106,16 @@ body {
     border-bottom: 1px solid var(--button-bg);
 }
 
+/*.sidebar ul ul {
+    margin-left: 15px;
+    border-left: 1px solid var(--button-bg);
+}
+
+.sidebar ul ul li {
+    font-size: 16px;
+    padding: 10px;
+}*/
+
 .sidebar ul li.active {
     background: var(--text-color);
     font-weight: bold;
@@ -118,7 +128,7 @@ body {
     border-radius: 8px;
 }
 
-/* Основной контейнер */
+/* ГЋГ±Г­Г®ГўГ­Г®Г© ГЄГ®Г­ГІГҐГ©Г­ГҐГ° */
 .container {
     max-width: 800px;
     background: var(--content-bg);
@@ -221,7 +231,7 @@ button:hover {
     border-radius: 50%;
     cursor: pointer;
     transition: transform 0.3s ease, background 0.3s ease;
-    display: none; /* По умолчанию скрыта */
+    display: none; /* ГЏГ® ГіГ¬Г®Г«Г·Г Г­ГЁГѕ Г±ГЄГ°Г»ГІГ  */
 }
 
 #arrow-content {
