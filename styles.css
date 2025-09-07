@@ -81,6 +81,10 @@ body {
     transform: translateX(-100%);
     overflow-y: auto;
     z-index: 1002;
+    user-select: none; /* Запретить выделение текста */
+    -webkit-user-select: none; /* Для Safari */
+    -moz-user-select: none; /* Для Firefox */
+    -ms-user-select: none; /* Для IE/Edge */
 }
 
 .sidebar.open {
