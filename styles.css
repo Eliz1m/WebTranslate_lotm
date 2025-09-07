@@ -112,13 +112,14 @@ body {
     cursor: pointer;
     padding: 12px;
     border-bottom: 1px solid var(--button-bg);
-    margin-bottom: 5px; /* отступ снизу для воздуха */
+    margin-bottom: 10px; /* отступ снизу для воздуха */
 }
 
 /* Список глав внутри тома */
 .sidebar ul ul.chapters {
     margin: 0 0 10px 15px;
     /*margin: 0;*/
+    margin-top: 8px;
     padding: 0;
     list-style: none;
 }
