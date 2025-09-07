@@ -112,6 +112,7 @@ body {
     cursor: pointer;
     padding: 12px;
     border-bottom: 1px solid var(--button-bg);
+    margin-bottom: 5px; /* отступ снизу для воздуха */
 }
 
 /* Список глав внутри тома */
