@@ -166,12 +166,24 @@
                 }
 
                 // обработка клика на том
-                volLi.onclick = () => {
+                /*volLi.onclick = () => {
                     const isOpen = ul.style.display === "block";
                     document.querySelectorAll(".chapters").forEach(list => list.style.display = "none");
                     if (!isOpen) {
                         ul.style.display = "block";
                     }
+                };*/
+
+                volLi.onclick = (e) => {
+                    e.stopPropagation(); // Предотвращаем всплытие события
+                    // Закрываем все другие списки глав
+                    document.querySelectorAll(".chapters").forEach(list => {
+                        if (list !== ul) {
+                            list.classList.remove("open");
+                        }
+                    });
+                    // Переключаем текущий список
+                    ul.classList.toggle("open");
                 };
 
                 volLi.appendChild(ul);
@@ -197,6 +209,11 @@
                     parseInt(li.getAttribute("data-chapter")) === currentChapter
                 ) {
                     li.classList.add("active");
+                    // Автоматически раскрываем том с активной главой
+                    const chaptersList = li.closest('.chapters');
+                    if (chaptersList) {
+                        chaptersList.classList.add("open");
+                    }
                 }
             });
         }
