@@ -67,6 +67,10 @@
         }*/
 
         function loadChapter(vol, ch) {
+            // Обновляем глобальные переменные
+            volume = vol;
+            chapter = ch;
+            
             fetch(`volumes/volume${vol}/chapter${ch}.txt`)
                 .then(response => {
                     if (!response.ok) throw new Error('Глава не найдена');
