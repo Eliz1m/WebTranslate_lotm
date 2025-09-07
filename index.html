@@ -40,9 +40,16 @@
 
     <script>
         let chapter = 1;
-        const totalChapters = 213; // СКОЛЬКО ГЛАВ ВСЕГО
+        let volume = 1;
+        //const totalChapters = 213; // СКОЛЬКО ГЛАВ ВСЕГО
 
-        function loadChapter(chapterNumber) {
+        const volumes = {
+            1: 1
+            //2: 10
+            //3: 10
+        };
+
+        /*function loadChapter(chapterNumber) {
             fetch(`chapters/chapter${chapterNumber}.txt`)
                 .then(response => {
                     if (!response.ok) throw new Error('Глава не найдена');
@@ -57,9 +64,26 @@
                 .catch(error => {
                     document.getElementById('content').innerText = 'Глава не найдена';
                 });
+        }*/
+
+        function loadChapter(vol, ch) {
+            fetch(`volumes/volume${vol}/chapter${ch}.txt`)
+                .then(response => {
+                    if (!response.ok) throw new Error('Глава не найдена');
+                    return response.text();
+                })
+                .then(text => {
+                    document.getElementById('content').innerText = text;
+                    document.getElementById('page-title').textContent = `Том ${vol} — Глава ${ch}`;
+                    window.scrollTo(0, 0);
+                    updateTOC(vol, ch);
+                })
+                .catch(error => {
+                    document.getElementById('content').innerText = 'Глава не найдена';
+                });
         }
 
-        function prevChapter() {
+        /*function prevChapter() {
             if (chapter > 1) {
                 chapter--;
                 loadChapter(chapter);
@@ -71,6 +95,26 @@
                 chapter++;
                 loadChapter(chapter);
             }
+        }*/
+
+        function prevChapter() {
+            if (chapter > 1) {
+                chapter--;
+            } else if (volume > 1) {
+                volume--;
+                chapter = volumes[volume]; // последняя глава предыдущего тома
+            }
+            loadChapter(volume, chapter);
+        }
+
+        function nextChapter() {
+            if (chapter < volumes[volume]) {
+                chapter++;
+            } else if (volume < Object.keys(volumes).length) {
+                volume++;
+                chapter = 1; // первая глава следующего тома
+            }
+            loadChapter(volume, chapter);
         }
 
         function toggleMenu() {
@@ -78,7 +122,7 @@
             document.getElementById('overlay').classList.toggle('open');
         }
 
-        function generateTOC() {
+        /*function generateTOC() {
             const toc = document.getElementById('toc');
             for (let i = 1; i <= totalChapters; i++) {
                 const li = document.createElement('li');
@@ -92,19 +136,60 @@
                 toc.appendChild(li);
             }
             updateTOC(chapter);
+        }*/
+
+        function generateTOC() {
+            const toc = document.getElementById('toc');
+            toc.innerHTML = "";
+            for (let v = 1; v <= Object.keys(volumes).length; v++) {
+                const volLi = document.createElement('li');
+                volLi.textContent = `Том ${v}`;
+                const ul = document.createElement('ul');
+
+                for (let c = 1; c <= volumes[v]; c++) {
+                    const li = document.createElement('li');
+                    li.textContent = `Глава ${c}`;
+                    li.setAttribute("data-volume", v);
+                    li.setAttribute("data-chapter", c);
+                    li.onclick = () => {
+                        volume = v;
+                        chapter = c;
+                        loadChapter(v, c);
+                        toggleMenu();
+                    };
+                    ul.appendChild(li);
+                }
+
+                volLi.appendChild(ul);
+                toc.appendChild(volLi);
+            }
+            updateTOC(volume, chapter);
         }
 
-        function updateTOC(currentChapter) {
+        /*function updateTOC(currentChapter) {
             document.querySelectorAll("#toc li").forEach(li => {
                 li.classList.remove("active");
                 if (parseInt(li.getAttribute("data-chapter")) === currentChapter) {
                     li.classList.add("active");
                 }
             });
+        }*/
+
+        function updateTOC(currentVol, currentChapter) {
+            document.querySelectorAll("#toc li ul li").forEach(li => {
+                li.classList.remove("active");
+                if (
+                    parseInt(li.getAttribute("data-volume")) === currentVol &&
+                    parseInt(li.getAttribute("data-chapter")) === currentChapter
+                ) {
+                    li.classList.add("active");
+                }
+            });
         }
 
         generateTOC();
-        loadChapter(chapter);
+        //loadChapter(chapter);
+        loadChapter(volume, chapter);
 
         document.addEventListener("DOMContentLoaded", () => {
             const themeToggle = document.getElementById("theme-toggle");
