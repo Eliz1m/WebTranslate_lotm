@@ -206,6 +206,10 @@
         }*/
 
         function updateTOC(currentVol, currentChapter) {
+            document.querySelectorAll(".chapters").forEach(list => {
+                list.classList.remove("open");
+            });
+            
             document.querySelectorAll("#toc li ul li").forEach(li => {
                 li.classList.remove("active");
                 if (
