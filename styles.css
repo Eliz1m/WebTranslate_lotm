@@ -121,6 +121,12 @@ body {
 
 /* Список глав внутри тома */
 .sidebar ul ul.chapters {
+
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.4s ease-in-out, opacity 0.4s ease-in-out;
+    opacity: 0;
+    
     font-weight: bold;
     /*margin: 0;*/
     margin-top: 10px;
@@ -129,6 +135,12 @@ body {
     padding: 0;
     list-style: none;
     text-align: center;   /* Выровнять главы */
+}
+
+/* Открытое состояние списка глав */
+.sidebar ul ul.chapters.open {
+    max-height: 1000px; /* Достаточно большое значение для всех глав */
+    opacity: 1;
 }
 
 /* Глава */
