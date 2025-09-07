@@ -133,6 +133,7 @@ body {
     padding: 10px;
     border-bottom: 1px solid var(--button-bg);
     cursor: pointer;
+    border-radius: 8px;
     transition: background 0.3s ease; /* Добавлен плавный переход */
     text-align: center;       /* а текст внутри блока главы выравниваем влево */
 }
