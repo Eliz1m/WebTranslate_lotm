@@ -132,7 +132,7 @@ body {
     border-bottom: 1px solid var(--button-bg);
     cursor: pointer;
     transition: background 0.3s ease; /* Добавлен плавный переход */
-    /*text-align: left;       /* а текст внутри блока главы выравниваем влево */
+    text-align: center;       /* а текст внутри блока главы выравниваем влево */
 }
 
 .sidebar ul ul.chapters li.active {
