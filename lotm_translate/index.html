@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Читалка</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico?v=2">
+    <link rel="stylesheet" href="styles.css">
+
+</head>
+<body>
+
+    <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+
+    <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+
+    <div class="sidebar" id="sidebar">
+        <h2>Оглавление</h2>
+        <ul id="toc"></ul>
+    </div>
+
+    <div class="container">
+        <h1 id="page-title">Читалка</h1>
+        <div id="content" class="content">Загрузка...</div>
+        <div class="controls">
+            <button onclick="prevChapter()">◀ Предыдущая</button>
+            <button onclick="nextChapter()">Следующая ▶</button>
+        </div>
+    </div>
+
+    <div id="floating-menu">
+        <button id="arrow-toggle">></button>
+        <div id="arrow-content">
+            <button id="theme-toggle">🌙</button>
+            <button id="increase-font">➕</button>
+            <button id="decrease-font">➖</button>
+        </div>
+    </div>
+
+    <script>
+        let chapter = 1;
+        const totalChapters = 213; // СКОЛЬКО ГЛАВ ВСЕГО
+
+        function loadChapter(chapterNumber) {
+            fetch(`chapters/chapter${chapterNumber}.txt`)
+                .then(response => {
+                    if (!response.ok) throw new Error('Глава не найдена');
+                    return response.text();
+                })
+                .then(text => {
+                    document.getElementById('content').innerText = text;
+                    document.getElementById('page-title').textContent = `Глава ${chapterNumber}`;
+                    window.scrollTo(0, 0);
+                    updateTOC(chapterNumber); // Обновлят индикатор в оглавлении
+                })
+                .catch(error => {
+                    document.getElementById('content').innerText = 'Глава не найдена';
+                });
+        }
+
+        function prevChapter() {
+            if (chapter > 1) {
+                chapter--;
+                loadChapter(chapter);
+            }
+        }
+
+        function nextChapter() {
+            if (chapter < totalChapters) {
+                chapter++;
+                loadChapter(chapter);
+            }
+        }
+
+        function toggleMenu() {
+            document.getElementById('sidebar').classList.toggle('open');
+            document.getElementById('overlay').classList.toggle('open');
+        }
+
+        function generateTOC() {
+            const toc = document.getElementById('toc');
+            for (let i = 1; i <= totalChapters; i++) {
+                const li = document.createElement('li');
+                li.textContent = `Глава ${i}`;
+                li.setAttribute("data-chapter", i);
+                li.onclick = () => {
+                    chapter = i;
+                    loadChapter(i);
+                    toggleMenu();
+                };
+                toc.appendChild(li);
+            }
+            updateTOC(chapter);
+        }
+
+        function updateTOC(currentChapter) {
+            document.querySelectorAll("#toc li").forEach(li => {
+                li.classList.remove("active");
+                if (parseInt(li.getAttribute("data-chapter")) === currentChapter) {
+                    li.classList.add("active");
+                }
+            });
+        }
+
+        generateTOC();
+        loadChapter(chapter);
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const themeToggle = document.getElementById("theme-toggle");
+            const currentTheme = localStorage.getItem("theme");
+
+            const increaseFont = document.getElementById("increase-font");
+            const decreaseFont = document.getElementById("decrease-font");
+
+            const content = document.querySelector(".content");
+
+            const arrowToggle = document.getElementById("arrow-toggle");
+            const floatingMenu = document.getElementById("floating-menu");
+
+            arrowToggle.addEventListener("click", () => {
+                floatingMenu.classList.toggle("open");
+            });
+
+            if (currentTheme === "dark") {
+                themeToggle.textContent = "☀️";
+            } else {
+                themeToggle.textContent = "🌙";
+            }
+
+            if (currentTheme) {
+                document.documentElement.setAttribute("data-theme", currentTheme);
+            } else {
+                document.documentElement.setAttribute("data-theme", "light");
+            }
+
+            themeToggle.addEventListener("click", () => {
+                const theme = document.documentElement.getAttribute("data-theme");
+                if (theme === "dark") {
+                    document.documentElement.setAttribute("data-theme", "light");
+                    themeToggle.textContent = "🌙";
+                    localStorage.setItem("theme", "light");
+                } else {
+                    document.documentElement.setAttribute("data-theme", "dark");
+                    themeToggle.textContent = "☀️";
+                    localStorage.setItem("theme", "dark");
+                }
+                console.log("New theme: ", localStorage.getItem("theme")); //
+            });
+
+            // Изменение размера шрифта
+
+            let fontSize = parseInt(localStorage.getItem("fontSize")) || 22;
+            content.style.fontSize = fontSize + "px";
+
+            increaseFont.addEventListener("click", () => {
+                if (fontSize < 36) {
+                    fontSize += 2;
+                    content.style.fontSize = fontSize + "px";
+                    localStorage.setItem("fontSize", fontSize);
+                }
+            });
+
+            decreaseFont.addEventListener("click", () => {
+                if (fontSize > 18) {
+                    fontSize -= 2;
+                    content.style.fontSize = fontSize + "px";
+                    localStorage.setItem("fontSize", fontSize);
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
