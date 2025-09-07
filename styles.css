@@ -80,7 +80,7 @@ body {
     transition: transform 0.3s ease-in-out;
     transform: translateX(-100%);
     overflow-y: auto;
-    z-index: 1001;
+    z-index: 1002;
 }
 
 .sidebar.open {
@@ -106,6 +106,43 @@ body {
     border-bottom: 1px solid var(--button-bg);
 }
 
+/* Том */
+.sidebar ul li.volume {
+    font-weight: bold;
+    cursor: pointer;
+    padding: 12px;
+    border-bottom: 1px solid var(--button-bg);
+}
+
+/* Список глав внутри тома */
+.sidebar ul ul.chapters {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+/* Глава */
+.sidebar ul ul.chapters li {
+    font-weight: normal;
+    font-size: 16px;
+    padding: 10px;
+    border-bottom: 1px solid var(--button-bg);
+    cursor: pointer;
+    transition: background 0.3s ease; /* Добавлен плавный переход */
+}
+
+.sidebar ul ul.chapters li.active {
+    background: var(--text-color);
+    font-weight: bold;
+    color: var(--button-bg);
+    border-radius: 8px;
+}
+
+.sidebar ul ul.chapters li:hover {
+    background: var(--overlay);
+    border-radius: 8px;
+}
+
 /*.sidebar ul ul {
     margin-left: 15px;
     border-left: 1px solid var(--button-bg);
@@ -126,6 +163,7 @@ body {
 .sidebar ul li:hover {
     background: var(--overlay);
     border-radius: 8px;
+    transition: background 0.3s ease;
 }
 
 /* Îñíîâíîé êîíòåéíåð */
