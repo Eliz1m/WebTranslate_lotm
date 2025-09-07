@@ -140,16 +140,12 @@ body {
 
 .sidebar ul ul.chapters li.active {
     background: var(--text-color);
-    font-weight: bold;
     color: var(--button-bg);
-    border-radius: 8px;
 }
 
 .sidebar ul ul.chapters li:hover {
     background: var(--overlay);
-    font-weight: bold;
     color: var(--text-color);
-    border-radius: 8px;
 }
 
 /*.sidebar ul ul {
