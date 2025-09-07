@@ -144,8 +144,13 @@
             for (let v = 1; v <= Object.keys(volumes).length; v++) {
                 const volLi = document.createElement('li');
                 volLi.textContent = `Том ${v}`;
-                const ul = document.createElement('ul');
+                //const ul = document.createElement('ul');
+                volLi.classList.add("volume"); // класс тома
 
+                const ul = document.createElement('ul');
+                ul.classList.add("chapters"); // список глав
+                ul.style.display = "none"; // скрыто по умолчанию
+                
                 for (let c = 1; c <= volumes[v]; c++) {
                     const li = document.createElement('li');
                     li.textContent = `Глава ${c}`;
@@ -159,6 +164,15 @@
                     };
                     ul.appendChild(li);
                 }
+
+                // обработка клика на том
+                volLi.onclick = () => {
+                    const isOpen = ul.style.display === "block";
+                    document.querySelectorAll(".chapters").forEach(list => list.style.display = "none");
+                    if (!isOpen) {
+                        ul.style.display = "block";
+                    }
+                };
 
                 volLi.appendChild(ul);
                 toc.appendChild(volLi);
