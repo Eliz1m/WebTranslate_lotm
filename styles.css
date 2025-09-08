@@ -140,7 +140,7 @@ body {
 /* Открытое состояние списка глав */
 .sidebar ul ul.chapters.open {
     /*max-height: 1000px; /* Достаточно большое значение для всех глав */
-    max-height: 100vh;
+    /*max-height: 100vh;*/
     margin-top: 10px;
     opacity: 1;
 }
