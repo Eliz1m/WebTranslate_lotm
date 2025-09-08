@@ -150,10 +150,11 @@
                 volLi.textContent = `Том ${v}`;
                 //const ul = document.createElement('ul');
                 volLi.classList.add("volume"); // класс тома
-
+                
                 const ul = document.createElement('ul');
                 ul.classList.add("chapters"); // список глав
                 //ul.style.display = "none"; // скрыто по умолчанию
+                ul.style.maxHeight = "0"; // изначально закрыто
                 
                 for (let c = 1; c <= volumes[v]; c++) {
                     const li = document.createElement('li');
@@ -184,10 +185,18 @@
                     document.querySelectorAll(".chapters").forEach(list => {
                         if (list !== ul) {
                             list.classList.remove("open");
+                            list.style.maxHeight = "0";
                         }
                     });
                     // Переключаем текущий список
-                    ul.classList.toggle("open");
+                    if (ul.classList.contains("open")) {
+                        ul.classList.remove("open");
+                        ul.style.maxHeight = "0";
+                    } else {
+                        ul.classList.add("open");
+                        ul.style.maxHeight = ul.scrollHeight + "px";
+                    }
+                    /*ul.classList.toggle("open");*/
                 };
 
                 volLi.appendChild(ul);
@@ -206,10 +215,10 @@
         }*/
 
         function updateTOC(currentVol, currentChapter) {
-            document.querySelectorAll(".chapters").forEach(list => {
+            /*document.querySelectorAll(".chapters").forEach(list => {
                 list.classList.remove("open");
                 list.style.maxHeight = "0px";
-            });
+            });*/
             
             document.querySelectorAll("#toc li ul li").forEach(li => {
                 li.classList.remove("active");
@@ -223,10 +232,11 @@
                     if (chaptersList) {
                         chaptersList.classList.add("open");
                         // Вычисляем динамическую высоту
-                        const chaptersCount = volumes[currentVol];
+                        /*const chaptersCount = volumes[currentVol];
                         const chapterHeight = 41;
                         const dynamicHeight = chaptersCount * chapterHeight + 20;
-                        chaptersList.style.maxHeight = dynamicHeight + "px";
+                        chaptersList.style.maxHeight = dynamicHeight + "px";*/
+                        chaptersList.style.maxHeight = chaptersList.scrollHeight + "px";
                     }
                 }
             });
