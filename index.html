@@ -221,6 +221,11 @@
                     const chaptersList = li.closest('.chapters');
                     if (chaptersList) {
                         chaptersList.classList.add("open");
+                        // Вычисляем динамическую высоту
+                        const chaptersCount = volumes[currentVol];
+                        const chapterHeight = 41;
+                        const dynamicHeight = chaptersCount * chapterHeight + 20;
+                        chaptersList.style.maxHeight = dynamicHeight + "px";
                     }
                 }
             });
