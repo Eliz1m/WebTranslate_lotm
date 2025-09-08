@@ -208,6 +208,7 @@
         function updateTOC(currentVol, currentChapter) {
             document.querySelectorAll(".chapters").forEach(list => {
                 list.classList.remove("open");
+                list.style.maxHeight = "0px";
             });
             
             document.querySelectorAll("#toc li ul li").forEach(li => {
