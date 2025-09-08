@@ -101,7 +101,10 @@ body {
     list-style: none;
     padding: 0;
     text-align: center;
-    padding-bottom: 15px;
+}
+
+#toc {
+    padding-bottom: 20px; /* ← зазор снизу */
 }
 
 .sidebar ul li {
