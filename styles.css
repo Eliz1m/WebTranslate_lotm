@@ -132,6 +132,7 @@ body {
 
     overflow: hidden;
     max-height: 0;
+    margin-bottom: 0;
     /*transition: max-height 0.4s ease-in-out, opacity 0.4s ease-in-out, margin-top 0.4s ease-in-out;*/
     transition: max-height 0.2s linear, opacity 0.2s linear, margin-top 0.2s linear;
     opacity: 0;
@@ -142,6 +143,7 @@ body {
     /*max-height: 1000px; /* Достаточно большое значение для всех глав */
     /*max-height: 100vh;*/
     margin-top: 10px;
+    margin-bottom: 10px;
     opacity: 1;
 }
 
