@@ -1,8 +1,11 @@
 {
   "ExpandedNodes": [
     "",
-    "\\chapters"
+    "\\lotm_translate",
+    "\\volumes",
+    "\\volumes\\volume1",
+    "\\volumes\\volume2"
   ],
-  "SelectedNode": "\\styles.css",
+  "SelectedNode": "\\volumes\\volume2\\chapter2.txt",
   "PreviewInSolutionExplorer": false
 }
