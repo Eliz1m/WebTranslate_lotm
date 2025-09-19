@@ -1,10 +1,10 @@
 {
   "ExpandedNodes": [
     "",
-    "\\lotm_translate",
     "\\volumes",
-    "\\volumes\\volume1"
+    "\\volumes\\volume1",
+    "\\volumes\\volume2"
   ],
-  "SelectedNode": "\\volumes\\volume1\\chapter1.txt",
+  "SelectedNode": "\\index.html",
   "PreviewInSolutionExplorer": false
 }
