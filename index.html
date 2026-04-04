@@ -105,12 +105,31 @@
                 .then(text => {
                     document.getElementById('content').innerText = text;
                     document.getElementById('page-title').textContent = `Том ${vol} — Глава ${ch}`;
+
+                    processSeparatorsInContent();
+
                     window.scrollTo(0, 0);
                     updateTOC(vol, ch);
                 })
                 .catch(error => {
                     document.getElementById('content').innerText = 'Глава не найдена';
                 });
+        }
+
+        // Функция для замены *** на горизонтальную линию
+        function processSeparatorsInContent() {
+            const content = document.getElementById('content');
+            if (!content) return;
+
+            let html = content.innerHTML;
+
+            //html = html.replace(/<br>\*\*\*<br>/g, '<hr class="separator-line">');
+            //html = html.replace(/<br><br>\*\*\*<br><br>/g, '<hr class="separator-line">');
+            html = html.replace(/<br>(\s*)<br>\*\*\*<br>(\s*)<br>/g, '<hr class="separator-line">');
+            //html = html.replace(/\*\*\*/g, '<hr class="separator-line">');
+            console.log(content.innerHTML);
+
+            content.innerHTML = html;
         }
 
         /*function prevChapter() {

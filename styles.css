@@ -1,5 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=EB+Garamond&display=swap');
 
+/* Простая горизонтальная линия-разделитель */
+.separator-line {
+    border: none;
+    height: 3px;
+    background-color: var(--text-color);
+    opacity: 0.3;
+    margin: 2em 0;
+    border-radius: 2px;
+}
+
+<!-- -->
+
 body {
     background-color: var(--bg-color);
     color: var(--text-color);
