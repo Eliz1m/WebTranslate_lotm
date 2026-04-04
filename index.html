@@ -105,12 +105,37 @@
                 .then(text => {
                     document.getElementById('content').innerText = text;
                     document.getElementById('page-title').textContent = `Том ${vol} — Глава ${ch}`;
+
+                    processSeparatorsInContent(); // new
+
                     window.scrollTo(0, 0);
                     updateTOC(vol, ch);
                 })
                 .catch(error => {
                     document.getElementById('content').innerText = 'Глава не найдена';
                 });
+        }
+
+        function processSeparatorsInContent() {
+            const content = document.getElementById('content');
+            if (!content) return;
+
+            let html = content.innerHTML;
+
+            // Разные варианты записи ***
+            const patterns = [
+                /<p>\*\*\*<\/p>/gi,
+                /<p>\* \* \*<\/p>/gi,
+                /^\*\*\*$/gm,
+                /^\* \* \*$/gm,
+                /\*\*\*/g
+            ];
+
+            patterns.forEach(pattern => {
+                html = html.replace(pattern, '<div class="separator"><span>✦ ✦ ✦</span></div>');
+            });
+
+            content.innerHTML = html;
         }
 
         /*function prevChapter() {
